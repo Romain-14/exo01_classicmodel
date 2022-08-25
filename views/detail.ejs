@@ -1,0 +1,61 @@
+
+
+<section>
+
+    <ul>
+        <li><%= infoCustomer.customerName %></li>
+        <li><%= infoCustomer.contactFirstName %> <%= infoCustomer.contactLastName %></li>
+        <li><%= infoCustomer.addressLine1 %></li>
+        <% if(infoCustomer.addressLine2 !== null) {%>
+            <li><%= infoCustomer.addressLine2 %></li>
+        <%}%>
+        <li><%= infoCustomer.city %></li>
+
+    </ul>
+
+</section>
+
+<section>
+    <h2>Order n°<%= orderNumber %></h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>product</th>
+                <th>price each</th>
+                <th>quantity</th>
+                <th>total</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="3">total amount excluding taxes</td>
+                <td><%=totalAmount.toFixed(2) %></td>
+            </tr>
+            <tr>
+                <td colspan="3">VAT 20%</td>
+                <td><%=(totalAmount * 0.20).toFixed(2) %></td>
+            </tr>
+            <tr>
+                <td colspan="3">total amount excluding taxes</td>
+                <td><%=(totalAmount * 1.20).toFixed(2) %></td>
+            </tr>
+        </tfoot>
+        <tbody>
+
+            <% for(const detail of orderDetail){%>
+                <tr>
+                    <td><%= detail.productName%></td>
+                    <td><%= detail.priceEach%></td>
+                    <td><%= detail.quantityOrdered%></td>
+                    <td><%= (detail.quantityOrdered * detail.priceEach).toFixed(2) %></td>
+                </tr>
+            <% } %>
+
+        </tbody>
+
+
+
+    </table>
+
+</section>

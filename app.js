@@ -6,7 +6,6 @@ import path from "path";
 // DB import
 import POOL from "./database/db.js";
 import {PORT} from './lib/index.js';
-import { get } from 'http';
 
 const app = express();
 
@@ -27,10 +26,21 @@ app.get("/", async function(req, res, next) {
 });
 
 app.get("/detail/:orderId/:customerId", async function(req,res,next){
-    console.log('orderId --> ', req.params.orderId);
-    console.log('customerId ---> ', req.params.customerId);
-    // res.end à remplacer par la méthode de rendu
-    res.end();
+    const [infoCustomer] = await POOL.execute(`SELECT customerName, contactFirstName, contactLastName, addressLine1, addressLine2, city 
+                                               FROM customers
+                                               WHERE customerNumber = ?`, [req.params.customerId]);
+
+    const [orderDetail] = await POOL.execute(`SELECT productName, priceEach, quantityOrdered
+                                              FROM orderdetails
+                                              JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+                                              JOIN products ON orderdetails.productCode = products.productCode
+                                              WHERE orders.orderNumber = ? ORDER BY productName`, [req.params.orderId] );
+
+    const [totalAmountQ] =  await POOL.execute(`SELECT SUM(priceEach * quantityOrdered) AS totalAmount FROM orderdetails WHERE orderNumber = ?`, [req.params.orderId]);
+
+    const {totalAmount} = totalAmountQ[0];
+
+    res.render("layout", {template: "detail", infoCustomer: infoCustomer[0], orderNumber: req.params.orderId, orderDetail: orderDetail, totalAmount: totalAmount});
 })
 
 

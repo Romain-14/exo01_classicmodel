@@ -19,12 +19,13 @@ table{
     border-collapse: collapse;    
 }
 
-td{
+td, th{
     border: 1px solid;
     padding: 1%;
     text-align: center;
 }
 
+/* on cible tous les éléments tr pair avec even, si on voulait les impairs ça serait odd */
 tr:nth-child(even){
     background-color: rgb(175, 155, 130);
 }
@@ -33,6 +34,6 @@ table a {
     display: block;
 }
 
-tr:hover{
+tbody tr:hover{
     background-color: green;
 }
