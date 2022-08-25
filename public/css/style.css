@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #333;
+    color: #fff;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;    
+}
+
+td{
+    border: 1px solid;
+    padding: 1%;
+    text-align: center;
+}
+
+tr:nth-child(even){
+    background-color: rgb(175, 155, 130);
+}
+
+table a {
+    display: block;
+}
+
+tr:hover{
+    background-color: green;
+}

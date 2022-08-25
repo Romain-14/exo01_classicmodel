@@ -1,0 +1,26 @@
+
+<section>
+
+    <table>
+        <caption>Orders List</caption>
+        <thead>
+            <tr>
+                <td>Order number</td>
+                <td>Order date</td>
+                <td>Order shipped</td>
+                <td>status</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(const data of datas) {%>
+                <tr>
+                    <td><a href="/detail/<%= data.orderNumber%>/<%= data.customerNumber%>"><%= data.orderNumber%></a></td>
+                    <td><%= data.orderDate.toLocaleDateString() %></td>
+                    <td><%= data.shippedDate?.toLocaleDateString() %></td>
+                    <td><%= data.status %></td>
+                </tr>
+            <% } %>    
+        </tbody>
+
+    </table>
+</section>
